@@ -1,9 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { SRPClient } from "./client";
 import { G_2048 } from "./groups";
-import { sha256 } from "../common/hashing";
+import { sha256, generateCryptoRandomString } from "../common";
 import { SRPServer } from "./server";
-import { generateCryptoRandomString } from "../common/generateCryptoRandomString";
 
 test("srp", async () => {
   const client = new SRPClient(G_2048, { hash: sha256 });

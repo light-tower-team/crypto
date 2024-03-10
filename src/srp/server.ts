@@ -1,6 +1,5 @@
 import { Group, NIL } from "./groups";
-import { bigIntToHex, bigIntModPow, hexToBigInt } from "../common/utils";
-import { generateCryptoRandomBigInt } from "../common/generateCryptoRandomBigInt";
+import { generateCryptoRandomBigInt, bigIntToHex, bigIntModPow, hexToBigInt } from "../common";
 import { InvalidClientPublicEphemeralError, InvalidClientSessionProofError } from "./errors";
 import { SRPInstance, SRPInstanceOptions } from "./instance";
 

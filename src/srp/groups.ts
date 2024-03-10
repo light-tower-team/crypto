@@ -1,4 +1,4 @@
-import { hexToBigInt } from "../common/utils";
+import { hexToBigInt } from "../common";
 
 export const NIL = 0n;
 
