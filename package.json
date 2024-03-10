@@ -1,0 +1,62 @@
+{
+  "name": "@light-tower-team/crypto",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
+  "exports": {
+    "./common": {
+      "types": "./dist/types/common/index.d.ts",
+      "import": "./dist/common/index.js"
+    },
+    "./srp": {
+      "types": "./dist/types/srp/index.d.ts",
+      "import": "./dist/srp/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "version": "0.1.0",
+  "scripts": {
+    "auto-fix": "lefthook run auto-fix",
+    "build": "rm -rf ./dist && tsc && vite build && tsc -p ./tsconfig.build.json",
+    "ts_check": "tsc --noEmit",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "fmt": "prettier . --write",
+    "fmt:check": "prettier . --check",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:debug": "vitest --inspect-brk --pool threads --poolOptions.threads.singleThread"
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "author": "michailshcherbakov@gmail.com",
+  "bugs": {
+    "url": "https://github.com/light-tower-team/crypto/issues"
+  },
+  "homepage": "https://github.com/light-tower-team/crypto#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/light-tower-team/crypto.git"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@types/node": "^20.11.25",
+    "@vitest/coverage-v8": "^1.3.1",
+    "fast-glob": "^3.3.2",
+    "lefthook": "^1.6.5",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.2",
+    "vite": "^5.1.5",
+    "vite-tsconfig-paths": "^4.3.1",
+    "vitest": "^1.3.1"
+  }
+}
