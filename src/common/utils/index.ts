@@ -8,3 +8,6 @@ export * from "./bufToText";
 export * from "./hexToBigInt";
 export * from "./hexToBuf";
 export * from "./textToBuf";
+export * from "./base64ToBuf";
+export * from "./bufToBase64";
+export * from "./concatBuff";

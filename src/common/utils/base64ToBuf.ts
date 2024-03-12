@@ -1,5 +1,3 @@
 export function base64ToBuf(a: string): ArrayBuffer {
-  const encoder = new TextEncoder();
-
-  return encoder.encode(atob(a)).buffer;
+  return Uint8Array.from(atob(a), (c) => c.charCodeAt(0)).buffer;
 }

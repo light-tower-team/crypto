@@ -2,43 +2,27 @@
  * A data structure representing an encrypted and integrity-protected message.
  * @link https://datatracker.ietf.org/doc/html/rfc7516#section-2
  */
-export interface JsonWebEncryption {}
+export type JsonWebEncryption = AESEncryption | RSAEncryption | RBES2Encryption;
 
-export interface RSA {
-  /**
-   * The "alg" (algorithm) Header Parameter identifies the cryptographic algorithm used to secure the JWS.
-   * @link https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.1
-   */
-  alg: "RSA-OAEP-256";
-}
-
-/**
- * Key Encryption with PBES2
- * @link https://www.rfc-editor.org/rfc/rfc7518.html#section-4.8
- */
-export interface RBES2 {
-  /**
-   * The "alg" (algorithm) Header Parameter identifies the cryptographic algorithm used to secure the JWS.
-   * @link https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.1
-   */
-  alg: "PBES2-HS256+A128KW";
-  /**
-   * The "p2s" (PBES2 salt input) Header Parameter encodes a Salt Input value, which is used as part of the PBKDF2 salt value.
-   * The "p2s" value is BASE64URL(Salt Input).
-   * @link https://www.rfc-editor.org/rfc/rfc7518.html#section-4.8.1.1
-   */
-  p2s: string;
-  /**
-   * The "p2c" (PBES2 count) Header Parameter contains the PBKDF2 iteration count, represented as a positive JSON integer.
-   * @link https://www.rfc-editor.org/rfc/rfc7518.html#section-4.8.1.2
-   */
-  p2c: number;
+export interface BaseJsonWebEncryption {
   /**
    * The "cty" (content type) Header Parameter is used by JWS applications
    * to declare the media type of the secured content (the payload).
    * @link https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.10
    */
   cty: "jwk+json";
+  /**
+   * The "kid" (key ID) Header Parameter is a hint indicating which key was used to secure the JWS.
+   * @link https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.4
+   */
+  kid: string;
+  /**
+   * The ciphertext
+   */
+  ciphertext: string;
+}
+
+export interface AESEncryption extends BaseJsonWebEncryption {
   /**
    * The "enc" (encryption algorithm) Header Parameter identifies the content encryption algorithm
    * used to perform authenticated encryption on the plaintext to produce the ciphertext and the Authentication Tag.
@@ -56,11 +40,36 @@ export interface RBES2 {
    * Authentication Tag value resulting from the key encryption operation.
    * @link https://www.rfc-editor.org/rfc/rfc7518.html#section-4.7.1.2
    */
-  tag: number;
+  tag: string;
+}
+
+export interface RSAEncryption extends BaseJsonWebEncryption {
   /**
-   * The "kid" (key ID) Header Parameter is a hint indicating which key was used to secure the JWS.
-   * @link https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.4
+   * The "alg" (algorithm) Header Parameter identifies the cryptographic algorithm used to secure the JWS.
+   * @link https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.1
    */
-  kid: string;
-  data: string;
+  alg: "RSA-OAEP-256";
+}
+
+/**
+ * Key Encryption with PBES2
+ * @link https://www.rfc-editor.org/rfc/rfc7518.html#section-4.8
+ */
+export interface RBES2Encryption extends BaseJsonWebEncryption {
+  /**
+   * The "alg" (algorithm) Header Parameter identifies the cryptographic algorithm used to secure the JWS.
+   * @link https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.1
+   */
+  alg: "PBES2-HS256+A128KW";
+  /**
+   * The "p2s" (PBES2 salt input) Header Parameter encodes a Salt Input value, which is used as part of the PBKDF2 salt value.
+   * The "p2s" value is BASE64URL(Salt Input).
+   * @link https://www.rfc-editor.org/rfc/rfc7518.html#section-4.8.1.1
+   */
+  p2s: string;
+  /**
+   * The "p2c" (PBES2 count) Header Parameter contains the PBKDF2 iteration count, represented as a positive JSON integer.
+   * @link https://www.rfc-editor.org/rfc/rfc7518.html#section-4.8.1.2
+   */
+  p2c: number;
 }
