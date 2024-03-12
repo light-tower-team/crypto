@@ -30,7 +30,9 @@
     "fmt:check": "prettier . --check",
     "test": "vitest",
     "test:ui": "vitest --ui",
+    "test:cov": "vitest --coverage",
     "test:run": "vitest run",
+    "test:run:cov": "vitest run --coverage",
     "test:debug": "vitest --inspect-brk --pool threads --poolOptions.threads.singleThread"
   },
   "sideEffects": false,
