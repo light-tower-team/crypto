@@ -1,19 +1,15 @@
 import { concatBuffs, textToBuf, bufToBase64, base64ToBuf, bufToText } from "../utils";
 import { generateCryptoRandomValues } from "../generateCryptoRandomValues";
 import { AESEncryption } from "../jwe";
-
-export type ContentEncryptionAlgorithm = "A128GCM" | "A192GCM" | "A256GCM";
-
-export const LENGTH_IN_BITS = {
-  A128GCM: 128,
-  A192GCM: 192,
-  A256GCM: 256,
-} as const satisfies Record<ContentEncryptionAlgorithm, number>;
-
-export const BYTE = 8;
+import { ContentEncryptionAlgorithm } from "./types";
+import { BYTE, AUTH_TAG_LENGTH, INITIALIZATION_VECTOR_LENGTH, LENGTH_IN_BITS } from "./constants";
 
 export class AES {
-  private constructor(public readonly origin: CryptoKey) {}
+  private constructor(public readonly origin: CryptoKey) {
+    if (!this.origin.algorithm.name.startsWith("AES") || this.origin.type !== "secret") {
+      throw new TypeError("Incorrect the origin crypto key");
+    }
+  }
 
   public static async generateKey(enc: ContentEncryptionAlgorithm = "A256GCM"): Promise<AES> {
     const key = await crypto.subtle.generateKey(
@@ -28,14 +24,14 @@ export class AES {
     return new AES(key);
   }
 
-  public async encrypt(data: string): Promise<AESEncryption> {
-    const iv = generateCryptoRandomValues(12);
-    const tagLength = 128;
+  public async encrypt(plaintext: string): Promise<AESEncryption> {
+    const iv = generateCryptoRandomValues(INITIALIZATION_VECTOR_LENGTH);
+    const tagLength = AUTH_TAG_LENGTH;
 
     const ciphertextAndAuthTag = await crypto.subtle.encrypt(
       { ...this.origin.algorithm, iv, tagLength },
       this.origin,
-      textToBuf(data),
+      textToBuf(plaintext),
     );
 
     const divider = ciphertextAndAuthTag.byteLength - tagLength / BYTE;
