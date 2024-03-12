@@ -21,5 +21,10 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "node",
+    coverage: {
+      enabled: true,
+      provider: "istanbul",
+      reporter: ["html"],
+    },
   },
 });
