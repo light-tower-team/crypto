@@ -1,8 +1,4 @@
 function getPrevBufLength(buffers: ArrayBuffer[], index: number): number {
-  if (index < 0) {
-    return 0;
-  }
-
   return buffers[index - 1]?.byteLength ?? 0;
 }
 

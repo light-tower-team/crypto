@@ -25,5 +25,5 @@ test("srp", async () => {
 
   const serverSession = await server.deriveSession(clientPublicEphemeral, clientSession.proof, username, salt);
 
-  client.verifySession(clientSession, serverSession.proof);
+  expect(client.verifySession(clientSession, serverSession.proof)).resolves.toBeUndefined();
 });

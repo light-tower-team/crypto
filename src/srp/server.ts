@@ -1,7 +1,7 @@
 import { Group, NIL } from "./groups";
 import { generateCryptoRandomBigInt, bigIntToHex, bigIntModPow, hexToBigInt } from "../common";
 import { InvalidClientPublicEphemeralError, InvalidClientSessionProofError } from "./errors";
-import { SRPInstance, SRPInstanceOptions } from "./instance";
+import { SRPInstance, SRPInstanceOptions, Session } from "./instance";
 
 export class SRPServer extends SRPInstance {
   private readonly verifier: bigint;
@@ -43,7 +43,7 @@ export class SRPServer extends SRPInstance {
     clientSessionProof: string,
     username: string,
     salt: string,
-  ) => {
+  ): Promise<Session> => {
     const { g, N } = this.group;
 
     const A = hexToBigInt(clientPublicEphemeral);

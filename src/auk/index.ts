@@ -1,1 +1,1 @@
-export * from "./auk";
+export * as AUK from "./auk";

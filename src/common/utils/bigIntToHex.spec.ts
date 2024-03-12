@@ -1,5 +1,5 @@
 import { NegativeIntegerError, bigIntToHex } from "./bigIntToHex";
-import { hexToBigInt } from "./hexToBigInt";
+import { IncorrectHexStringError, hexToBigInt } from "./hexToBigInt";
 
 describe("bigint and hex", () => {
   it("should correct encode/decode", () => {
@@ -16,5 +16,9 @@ describe("bigint and hex", () => {
     const a = -17089213339746507438148031875678623280n;
 
     expect(() => bigIntToHex(a)).toThrowError(NegativeIntegerError);
+  });
+
+  it("should throw an error when trying to decode an empty hex", () => {
+    expect(() => hexToBigInt("")).toThrowError(IncorrectHexStringError);
   });
 });

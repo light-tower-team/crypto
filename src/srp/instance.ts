@@ -5,6 +5,11 @@ export interface SRPInstanceOptions {
   hash: HashFunction;
 }
 
+export interface Session {
+  proof: string;
+  key: string;
+}
+
 export abstract class SRPInstance {
   protected publicEphemeral: bigint = NIL;
   protected privateEphemeral: bigint = NIL;

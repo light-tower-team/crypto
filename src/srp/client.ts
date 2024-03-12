@@ -1,7 +1,7 @@
 import { NIL, Group } from "./groups";
 import { generateCryptoRandomBigInt, bigIntToHex, bigIntModPow, hexToBigInt } from "../common";
 import { InvalidServerPublicEphemeralError, InvalidServerSessionProofError } from "./errors";
-import { SRPInstance, SRPInstanceOptions } from "./instance";
+import { SRPInstance, SRPInstanceOptions, Session } from "./instance";
 
 export class SRPClient extends SRPInstance {
   public constructor(
@@ -74,7 +74,7 @@ export class SRPClient extends SRPInstance {
     };
   };
 
-  public verifySession = async (session: any, serverSessionProof: string): Promise<void> => {
+  public verifySession = async (session: Session, serverSessionProof: string): Promise<void> => {
     const { H } = this;
 
     const A = this.publicEphemeral;

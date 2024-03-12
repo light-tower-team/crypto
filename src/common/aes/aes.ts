@@ -3,11 +3,12 @@ import { generateCryptoRandomValues } from "../generateCryptoRandomValues";
 import { AESEncryption } from "../jwe";
 import { ContentEncryptionAlgorithm } from "./types";
 import { BYTE, AUTH_TAG_LENGTH, INITIALIZATION_VECTOR_LENGTH, LENGTH_IN_BITS } from "./constants";
+import { IncorrectOriginCryptoKeyError } from "../errors";
 
 export class AES {
   private constructor(public readonly origin: CryptoKey) {
     if (!this.origin.algorithm.name.startsWith("AES") || this.origin.type !== "secret") {
-      throw new TypeError("Incorrect the origin crypto key");
+      throw new IncorrectOriginCryptoKeyError();
     }
   }
 

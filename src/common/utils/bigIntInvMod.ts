@@ -1,14 +1,8 @@
-export class NotInvertibleError extends Error {
-  public constructor() {
-    super("The 'a' is not invertible.");
-  }
-}
-
-export function bigIntInvMod(a: bigint, n: bigint): bigint {
+export function bigIntInvMod(b: bigint, m: bigint): bigint {
   let t = 0n;
-  let r = n;
+  let r = m;
   let newT = 1n;
-  let newR = a;
+  let newR = b;
   let q: bigint;
   let lastT: bigint;
   let lastR: bigint;
@@ -23,12 +17,8 @@ export function bigIntInvMod(a: bigint, n: bigint): bigint {
     newR = lastR - q * newR;
   }
 
-  if (r > 1n) {
-    throw new NotInvertibleError();
-  }
-
   if (t < 0n) {
-    t = t + n;
+    t = t + m;
   }
 
   return t;

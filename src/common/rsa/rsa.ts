@@ -1,3 +1,4 @@
+import { IncorrectOriginCryptoKeyError } from "../errors";
 import { base64ToBuf, bufToBase64, bufToText, textToBuf } from "../utils";
 import { MODULUS_LENGTH, PUBLIC_EXPONENT } from "./constants";
 
@@ -8,8 +9,8 @@ export interface KeyPair {
 
 export class PublicKey {
   public constructor(public readonly origin: CryptoKey) {
-    if (this.origin.algorithm.name !== "RSA-OAEP" || this.origin.type !== "public") {
-      throw new TypeError("Incorrect the origin crypto key");
+    if (!this.origin.algorithm.name.startsWith("RSA") || this.origin.type !== "public") {
+      throw new IncorrectOriginCryptoKeyError();
     }
   }
 
@@ -28,8 +29,8 @@ export class PublicKey {
 
 export class PrivateKey {
   public constructor(public readonly origin: CryptoKey) {
-    if (this.origin.algorithm.name !== "RSA-OAEP" || this.origin.type !== "private") {
-      throw new TypeError("Incorrect the origin crypto key");
+    if (!this.origin.algorithm.name.startsWith("RSA") || this.origin.type !== "private") {
+      throw new IncorrectOriginCryptoKeyError();
     }
   }
 
@@ -39,6 +40,10 @@ export class PrivateKey {
     );
 
     return plaintext;
+  }
+
+  public toJWK(): Promise<JsonWebKey> {
+    return crypto.subtle.exportKey("jwk", this.origin);
   }
 }
 
