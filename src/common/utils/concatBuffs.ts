@@ -6,7 +6,7 @@ function getPrevBufLength(buffers: ArrayBuffer[], index: number): number {
   return buffers[index - 1]?.byteLength ?? 0;
 }
 
-export function concatBuf(...buffers: ArrayBuffer[]): ArrayBuffer {
+export function concatBuffs(...buffers: ArrayBuffer[]): ArrayBuffer {
   const buffs = buffers.map((buf) => new Uint8Array(buf));
   const buf = new Uint8Array(new ArrayBuffer(buffs.reduce((length, { byteLength }) => length + byteLength, 0)));
 

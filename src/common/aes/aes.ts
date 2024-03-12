@@ -1,4 +1,4 @@
-import { concatBuf, textToBuf, bufToBase64, base64ToBuf, bufToText } from "../utils";
+import { concatBuffs, textToBuf, bufToBase64, base64ToBuf, bufToText } from "../utils";
 import { generateCryptoRandomValues } from "../generateCryptoRandomValues";
 import { AESEncryption } from "../jwe";
 
@@ -60,7 +60,11 @@ export class AES {
     const ciphertext = base64ToBuf(jwe.ciphertext);
 
     const plaintext = bufToText(
-      await crypto.subtle.decrypt({ ...this.origin.algorithm, iv, tagLength }, this.origin, concatBuf(ciphertext, tag)),
+      await crypto.subtle.decrypt(
+        { ...this.origin.algorithm, iv, tagLength },
+        this.origin,
+        concatBuffs(ciphertext, tag),
+      ),
     );
 
     return plaintext;
