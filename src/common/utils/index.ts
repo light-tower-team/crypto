@@ -11,3 +11,4 @@ export * from "./textToBuf";
 export * from "./base64ToBuf";
 export * from "./bufToBase64";
 export * from "./concatBuffs";
+export * from "./deriveCipherTextAndAuthTag";

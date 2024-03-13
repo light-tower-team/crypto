@@ -9,7 +9,7 @@ export interface KeyPair {
 
 export class PublicKey {
   public constructor(public readonly origin: CryptoKey) {
-    if (!this.origin.algorithm.name.startsWith("RSA") || this.origin.type !== "public") {
+    if (!this.origin.algorithm.name.startsWith("RSA-OAEP") || this.origin.type !== "public") {
       throw new IncorrectOriginCryptoKeyError();
     }
   }
@@ -29,7 +29,7 @@ export class PublicKey {
 
 export class PrivateKey {
   public constructor(public readonly origin: CryptoKey) {
-    if (!this.origin.algorithm.name.startsWith("RSA") || this.origin.type !== "private") {
+    if (!this.origin.algorithm.name.startsWith("RSA-OAEP") || this.origin.type !== "private") {
       throw new IncorrectOriginCryptoKeyError();
     }
   }

@@ -4,3 +4,6 @@ export * from "./generateCryptoRandomBigInt";
 export * from "./generateCryptoRandomString";
 export * from "./generateCryptoRandomValues";
 export * from "./jwe";
+export * from "./aes";
+export * from "./rsa";
+export * from "./errors";

@@ -1,26 +1,39 @@
-import { concatBuffs, textToBuf, bufToBase64, base64ToBuf, bufToText } from "../utils";
+import { concatBuffs, textToBuf, bufToBase64, base64ToBuf, bufToText, deriveCipherTextAndAuthTag } from "../utils";
 import { generateCryptoRandomValues } from "../generateCryptoRandomValues";
-import { AESEncryption } from "../jwe";
-import { ContentEncryptionAlgorithm } from "./types";
-import { BYTE, AUTH_TAG_LENGTH, INITIALIZATION_VECTOR_LENGTH, LENGTH_IN_BITS } from "./constants";
-import { IncorrectOriginCryptoKeyError } from "../errors";
+import { AESEncryption, AESEncryptionAlgorithm } from "../jwe";
+import { AUTH_TAG_LENGTH, INITIALIZATION_VECTOR_LENGTH, AES_ALGORITHMS } from "./constants";
+import { IncorrectOriginCryptoKeyError, UnknownEncryptionAlgorithmError } from "../errors";
+import { BYTE } from "../units";
 
 export class AES {
-  private constructor(public readonly origin: CryptoKey) {
+  public get enc(): AESEncryptionAlgorithm {
+    const algorithm = this.origin.algorithm as { name: string; length: number };
+
+    const [enc] =
+      Object.entries(AES_ALGORITHMS).find(
+        ([_, alg]) => alg.name === algorithm.name && alg.length === algorithm.length,
+      ) ?? [];
+
+    if (!enc) {
+      throw new UnknownEncryptionAlgorithmError();
+    }
+
+    return enc as AESEncryptionAlgorithm;
+  }
+
+  public constructor(public readonly origin: CryptoKey) {
     if (!this.origin.algorithm.name.startsWith("AES") || this.origin.type !== "secret") {
       throw new IncorrectOriginCryptoKeyError();
     }
   }
 
-  public static async generateKey(enc: ContentEncryptionAlgorithm = "A256GCM"): Promise<AES> {
-    const key = await crypto.subtle.generateKey(
-      {
-        name: "AES-GCM",
-        length: LENGTH_IN_BITS[enc],
-      },
-      true,
-      ["wrapKey", "unwrapKey", "encrypt", "decrypt"],
-    );
+  public static async generateKey(enc: AESEncryptionAlgorithm = "A256GCM"): Promise<AES> {
+    const key = await crypto.subtle.generateKey(AES_ALGORITHMS[enc], true, [
+      "wrapKey",
+      "unwrapKey",
+      "encrypt",
+      "decrypt",
+    ]);
 
     return new AES(key);
   }
@@ -35,17 +48,13 @@ export class AES {
       textToBuf(plaintext),
     );
 
-    const divider = ciphertextAndAuthTag.byteLength - tagLength / BYTE;
-
-    const ciphertext = ciphertextAndAuthTag.slice(0, divider);
-    const authTag = ciphertextAndAuthTag.slice(divider);
+    const { ciphertext, tag } = deriveCipherTextAndAuthTag(ciphertextAndAuthTag, tagLength);
 
     return {
-      kid: "",
-      enc: "A256GCM",
+      enc: this.enc,
       cty: "jwk+json",
       iv: bufToBase64(iv),
-      tag: bufToBase64(authTag),
+      tag: bufToBase64(tag),
       ciphertext: bufToBase64(ciphertext),
     };
   }

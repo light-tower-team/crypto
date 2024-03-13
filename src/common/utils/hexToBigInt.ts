@@ -1,8 +1,6 @@
 export class IncorrectHexStringError extends RangeError {
   public constructor() {
-    super(
-      "The 'hex' must be a hexadecimal string, e.g. '0x124fe3a' or '124fe3a'."
-    );
+    super("The 'hex' must be a hexadecimal string, e.g. '0x124fe3a' or '124fe3a'.");
   }
 }
 

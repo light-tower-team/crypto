@@ -1,8 +1,6 @@
 export class NegativeIntegerError extends RangeError {
   public constructor() {
-    super(
-      "The 'a' should be a non-negative integer. Negative values are not supported."
-    );
+    super("The 'a' should be a non-negative integer. Negative values are not supported.");
   }
 }
 
