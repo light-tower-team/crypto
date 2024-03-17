@@ -1,4 +1,6 @@
 import { IncorrectOriginCryptoKeyError } from "../errors";
+import { RSA_OAEP_ALGORITHMS } from "../jwe/constants";
+import { RSA_AOEP_KeyEncryptionAlgorithm } from "../jwe/types";
 import { base64ToBuf, bufToBase64, bufToText, textToBuf } from "../utils";
 import { MODULUS_LENGTH, PUBLIC_EXPONENT } from "./constants";
 
@@ -25,6 +27,12 @@ export class PublicKey {
   public toJWK(): Promise<JsonWebKey> {
     return crypto.subtle.exportKey("jwk", this.origin);
   }
+
+  public static async fromJWK(jwk: JsonWebKey): Promise<PublicKey> {
+    const alg = RSA_OAEP_ALGORITHMS[jwk.alg as RSA_AOEP_KeyEncryptionAlgorithm];
+
+    return new PublicKey(await crypto.subtle.importKey("jwk", jwk, alg, jwk.ext!, jwk.key_ops! as KeyUsage[]));
+  }
 }
 
 export class PrivateKey {
@@ -45,6 +53,12 @@ export class PrivateKey {
   public toJWK(): Promise<JsonWebKey> {
     return crypto.subtle.exportKey("jwk", this.origin);
   }
+
+  public static async fromJWK(jwk: JsonWebKey): Promise<PrivateKey> {
+    const alg = RSA_OAEP_ALGORITHMS[jwk.alg as RSA_AOEP_KeyEncryptionAlgorithm];
+
+    return new PrivateKey(await crypto.subtle.importKey("jwk", jwk, alg, jwk.ext!, jwk.key_ops! as KeyUsage[]));
+  }
 }
 
 export async function generateKeyPair(): Promise<KeyPair> {
@@ -56,7 +70,7 @@ export async function generateKeyPair(): Promise<KeyPair> {
       hash: "SHA-256",
     },
     true,
-    ["wrapKey", "unwrapKey", "decrypt", "encrypt"],
+    ["encrypt", "decrypt"],
   );
 
   return {

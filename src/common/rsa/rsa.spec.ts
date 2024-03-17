@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { IncorrectOriginCryptoKeyError } from "../errors";
 import { RSA } from ".";
-import { generateKeyPair } from "./__tests__/helpers/generateKeyPair";
+import { generateKeyPair } from "./__tests__/helpers/generate_key_pair";
 
 describe("rsa", () => {
   afterEach(() => {
@@ -53,7 +53,7 @@ describe("rsa", () => {
     expect(jwk).toHaveProperty("kty", "RSA");
     expect(jwk).toHaveProperty("alg", "RSA-OAEP-256");
     expect(jwk).toHaveProperty("ext", true);
-    expect(jwk).toHaveProperty("key_ops", ["encrypt", "wrapKey"]);
+    expect(jwk).toHaveProperty("key_ops", ["encrypt"]);
   });
 
   it("should convert the private key to jwk format", async () => {
@@ -64,6 +64,6 @@ describe("rsa", () => {
     expect(jwk).toHaveProperty("kty", "RSA");
     expect(jwk).toHaveProperty("alg", "RSA-OAEP-256");
     expect(jwk).toHaveProperty("ext", true);
-    expect(jwk).toHaveProperty("key_ops", ["decrypt", "unwrapKey"]);
+    expect(jwk).toHaveProperty("key_ops", ["decrypt"]);
   });
 });
