@@ -14,13 +14,21 @@
       "types": "./dist/types/common/index.d.ts",
       "import": "./dist/common.js"
     },
+    "./key-sets": {
+      "types": "./dist/types/key_sets/index.d.ts",
+      "import": "./dist/key_sets.js"
+    },
     "./srp": {
       "types": "./dist/types/srp/index.d.ts",
       "import": "./dist/srp.js"
     },
-    "./auk": {
-      "types": "./dist/types/auk/index.d.ts",
-      "import": "./dist/auk.js"
+    "./vault-items": {
+      "types": "./dist/types/vault_items/index.d.ts",
+      "import": "./dist/vault_items.js"
+    },
+    "./vaults": {
+      "types": "./dist/types/vaults/index.d.ts",
+      "import": "./dist/vaults.js"
     }
   },
   "scripts": {
