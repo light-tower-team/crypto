@@ -1,5 +1,6 @@
-import { aesgcm } from "./aes_gcm";
-import { ContentEncryptionAlgorithm, CryptoKeyLike } from "./types";
+import { aesgcm } from "../aes_gcm";
+import { UnknownContentEncryptionAlgorithmError } from "../errors";
+import { ContentEncryptionAlgorithm, CryptoKeyLike } from "../types";
 
 export function encrypt(
   enc: ContentEncryptionAlgorithm,
@@ -13,7 +14,7 @@ export function encrypt(
       return aesgcm.encrypt(cek, plaintext);
     }
     default: {
-      throw new Error("Unknown content encryption algorithm");
+      throw new UnknownContentEncryptionAlgorithmError();
     }
   }
 }

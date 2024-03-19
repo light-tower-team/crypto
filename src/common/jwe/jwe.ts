@@ -1,8 +1,13 @@
 import { base64ToBuf, base64ToText, bufToBase64, textToBase64, textToBuf } from "../utils";
-import { decrypt } from "./decrypt";
-import { decryptKeyManagement } from "./decrypt_key_management";
-import { encrypt } from "./encrypt";
-import { encryptKeyManagement } from "./encrypt_key_management";
+import { decrypt } from "./decrypt_content_management/decrypt_content_management";
+import { decryptKeyManagement } from "./decrypt_key_management/decrypt_key_management";
+import { encrypt } from "./encrypt_content_management/encrypt_content_management";
+import { encryptKeyManagement } from "./encrypt_key_management/encrypt_key_management";
+import {
+  ContentEncryptionAlgorithmNotSpecifiedError,
+  KeyEncryptionAlgorithmNotSpecifiedError,
+  UnknownSerializationError,
+} from "./errors";
 import {
   ContentEncryptionAlgorithm,
   CryptoKeyLike,
@@ -41,11 +46,11 @@ export class JsonWebEncryption {
     serialization: SerializationType = "compact",
   ): Promise<JsonWebEncryptionLike> {
     if (!this.#alg) {
-      throw new Error("The key encryption algorithm is not specified.");
+      throw new KeyEncryptionAlgorithmNotSpecifiedError();
     }
 
     if (!this.#enc) {
-      throw new Error("The content encryption algorithm is not specified.");
+      throw new ContentEncryptionAlgorithmNotSpecifiedError();
     }
 
     const { cek, encryptedKey, params } = await encryptKeyManagement(this.#alg, this.#enc, key);
@@ -77,7 +82,7 @@ export class JsonWebEncryption {
         return [flatten.protected, flatten.encrypted_key, flatten.iv, flatten.ciphertext, flatten.tag].join(".");
       }
       default: {
-        throw new Error("Unknown serialization type.");
+        throw new UnknownSerializationError();
       }
     }
   }

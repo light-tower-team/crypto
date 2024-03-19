@@ -1,7 +1,8 @@
-import { generateCEK } from "./generate_cek";
-import { pbes2kw } from "./pbes2_kw";
-import { rsaoaep } from "./rsa_oaep";
-import { ContentEncryptionAlgorithm, CryptoKeyLike, HeaderParams, KeyEncryptionAlgorithm } from "./types";
+import { UnknownKeyEncryptionAlgorithmError } from "../errors";
+import { generateCEK } from "../generate_cek/generate_cek";
+import { pbes2kw } from "../pbes2_kw";
+import { rsaoaep } from "../rsa_oaep";
+import { ContentEncryptionAlgorithm, CryptoKeyLike, HeaderParams, KeyEncryptionAlgorithm } from "../types";
 
 export async function encryptKeyManagement(
   alg: KeyEncryptionAlgorithm,
@@ -31,7 +32,7 @@ export async function encryptKeyManagement(
       break;
     }
     default: {
-      throw new Error("Unknown key encryption algorithm.");
+      throw new UnknownKeyEncryptionAlgorithmError();
     }
   }
 

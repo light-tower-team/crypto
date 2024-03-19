@@ -1,7 +1,8 @@
 import { faker } from "@faker-js/faker";
-import { IncorrectOriginCryptoKeyError } from "../errors";
+import { IncorrectOriginCryptoKeyError } from "./errors";
 import { RSA } from ".";
 import { generateKeyPair } from "./__tests__/helpers/generate_key_pair";
+import { checkAsymmetricEncryption } from "./__tests__/helpers/check_asymmetric_encryption";
 
 describe("rsa", () => {
   afterEach(() => {
@@ -65,5 +66,25 @@ describe("rsa", () => {
     expect(jwk).toHaveProperty("alg", "RSA-OAEP-256");
     expect(jwk).toHaveProperty("ext", true);
     expect(jwk).toHaveProperty("key_ops", ["decrypt"]);
+  });
+
+  it("should restore the public key from jwk", async () => {
+    const { publicKey, privateKey } = await RSA.generateKeyPair();
+
+    const jwk = await publicKey.toJWK();
+
+    const decodedPublicKey = await RSA.PublicKey.fromJWK(jwk);
+
+    expect(checkAsymmetricEncryption(decodedPublicKey, privateKey)).resolves.toBeTruthy();
+  });
+
+  it("should restore the private key from jwk", async () => {
+    const { publicKey, privateKey } = await RSA.generateKeyPair();
+
+    const jwk = await privateKey.toJWK();
+
+    const decodedPrivateKey = await RSA.PrivateKey.fromJWK(jwk);
+
+    expect(checkAsymmetricEncryption(publicKey, decodedPrivateKey)).resolves.toBeTruthy();
   });
 });

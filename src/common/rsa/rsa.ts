@@ -1,4 +1,4 @@
-import { IncorrectOriginCryptoKeyError } from "../errors";
+import { IncorrectOriginCryptoKeyError } from "./errors";
 import { RSA_OAEP_ALGORITHMS } from "../jwe/constants";
 import { RSA_AOEP_KeyEncryptionAlgorithm } from "../jwe/types";
 import { base64ToBuf, bufToBase64, bufToText, textToBuf } from "../utils";

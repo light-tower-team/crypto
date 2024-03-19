@@ -1,15 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { PrimaryKeySet } from ".";
 import { AUK } from "../account_unlock_key";
-import { RSA } from "../../common";
-
-async function checkAsymmetricEncryption(publicKey: RSA.PublicKey, privateKey: RSA.PrivateKey): Promise<boolean> {
-  const plaintext = faker.string.alpha({ length: { min: 4, max: 32 } });
-
-  const ciphertext = await publicKey.encrypt(plaintext);
-
-  return (await privateKey.decrypt(ciphertext)) === plaintext;
-}
+import { checkAsymmetricEncryption } from "../../common/rsa/__tests__/helpers/check_asymmetric_encryption";
 
 describe("primary key set", () => {
   it("should create a primary key set", async () => {

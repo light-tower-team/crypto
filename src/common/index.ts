@@ -2,7 +2,6 @@ export * from "./hashing";
 export * from "./jwe";
 export * from "./rsa";
 export * from "./utils";
-export * from "./errors";
 export * from "./generate_crypto_random_bigint";
 export * from "./generate_crypto_random_string";
 export * from "./generate_crypto_random_values";
