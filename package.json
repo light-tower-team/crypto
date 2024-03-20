@@ -1,14 +1,10 @@
 {
   "name": "@light-tower-team/crypto",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "typings": "./dist/index.d.ts",
   "exports": {
     "./common": {
       "types": "./dist/types/common/index.d.ts",
