@@ -1,7 +1,7 @@
 import { RSA } from "../../common";
-import { SymmetricKey } from "../symmetric_key";
-import { PrivateKey } from "../private_key";
 import { JsonWebEncryptionLike } from "../../common/jwe/types";
+import { PrivateKey } from "../private_key";
+import { SymmetricKey } from "../symmetric_key";
 
 export interface PrimaryKeySet {
   symmetricKey: ArrayBuffer;

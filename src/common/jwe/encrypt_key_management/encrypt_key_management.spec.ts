@@ -1,8 +1,8 @@
 import { generateCryptoRandomString } from "../../generate_crypto_random_string";
 import { generateCryptoRandomValues } from "../../generate_crypto_random_values";
-import { encryptKeyManagement } from ".";
 import { UnknownKeyEncryptionAlgorithmError } from "../errors";
 import { KeyEncryptionAlgorithm } from "../types";
+import { encryptKeyManagement } from ".";
 
 describe("encrypt key management", () => {
   it("should throw an error when the key encryption algorithm is unknown", () => {

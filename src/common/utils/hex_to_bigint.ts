@@ -13,7 +13,7 @@ export function hexToBigInt(hex: string): bigint {
 
   hex = h[2];
 
-  const a = BigInt("0x" + hex);
+  const a = BigInt(`0x${hex}`);
 
   return a;
 }

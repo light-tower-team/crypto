@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
+import { sha256, generateCryptoRandomString } from "../common";
 import { SRPClient } from "./client";
 import { G_2048 } from "./groups";
-import { sha256, generateCryptoRandomString } from "../common";
 import { SRPServer } from "./server";
 
 test("srp", async () => {

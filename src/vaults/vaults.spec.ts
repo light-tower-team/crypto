@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import Vaults, { Vault } from ".";
 import { RSA, generateCryptoRandomValues } from "../common";
+import Vaults, { Vault } from ".";
 
 describe("vaults", () => {
   it("should encrypt/decrypt a vault by public/private keys", async () => {

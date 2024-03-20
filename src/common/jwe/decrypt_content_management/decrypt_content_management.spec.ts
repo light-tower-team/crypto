@@ -1,10 +1,10 @@
 import { generateCryptoRandomString } from "../../generate_crypto_random_string";
 import { generateCryptoRandomValues } from "../../generate_crypto_random_values";
 import { textToBuf } from "../../utils";
-import { decrypt } from ".";
 import { encrypt } from "../encrypt_content_management/encrypt_content_management";
 import { UnknownContentEncryptionAlgorithmError } from "../errors";
 import { AES_GCM_ContentEncryptionAlgorithm } from "../types";
+import { decrypt } from ".";
 
 describe("decrypt", () => {
   it("should throw an error when the content encryption algorithm is unknown", async () => {

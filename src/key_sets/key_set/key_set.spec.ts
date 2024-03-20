@@ -1,5 +1,5 @@
-import { KeySet } from ".";
 import { RSA } from "../../common";
+import { KeySet } from ".";
 
 describe("key set", () => {
   it("should create a secondary key set", () => {

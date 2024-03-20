@@ -1,5 +1,5 @@
-import { NIL } from "./groups";
 import { hexToBigInt, HashFunction, HashFunctionArgs } from "../common";
+import { NIL } from "./groups";
 
 export interface SRPInstanceOptions {
   hash: HashFunction;

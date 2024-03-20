@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { generateCryptoRandomString, sha256 } from "../common";
 import { SRPClient } from "./client";
-import { G_2048, NIL } from "./groups";
 import { InvalidClientPublicEphemeralError, InvalidClientSessionProofError } from "./errors";
+import { G_2048, NIL } from "./groups";
 import { SRPServer } from "./server";
 
 describe("SRPServer", async () => {

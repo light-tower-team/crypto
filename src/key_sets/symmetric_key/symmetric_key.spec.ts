@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { SymmetricKey } from ".";
 import { AUK } from "../account_unlock_key";
+import { SymmetricKey } from ".";
 
 describe("symmetric key", () => {
   it("should generate a symmetric key", () => {

@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
-import { PrimaryKeySet } from ".";
-import { AUK } from "../account_unlock_key";
 import { checkAsymmetricEncryption } from "../../common/rsa/__tests__/helpers/check_asymmetric_encryption";
+import { AUK } from "../account_unlock_key";
+import { PrimaryKeySet } from ".";
 
 describe("primary key set", () => {
   it("should create a primary key set", async () => {

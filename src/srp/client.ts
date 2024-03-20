@@ -1,6 +1,6 @@
-import { NIL, Group } from "./groups";
 import { generateCryptoRandomBigInt, bigIntToHex, bigIntModPow, hexToBigInt } from "../common";
 import { InvalidServerPublicEphemeralError, InvalidServerSessionProofError } from "./errors";
+import { NIL, Group } from "./groups";
 import { SRPInstance, SRPInstanceOptions, Session } from "./instance";
 
 export class SRPClient extends SRPInstance {

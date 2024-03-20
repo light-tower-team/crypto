@@ -1,6 +1,6 @@
+import { faker } from "@faker-js/faker";
 import { RSA, generateCryptoRandomValues } from "../../common";
 import { PrivateKey } from ".";
-import { faker } from "@faker-js/faker";
 
 describe("private key", () => {
   it("should encrypt/decrypt the private key", async () => {

@@ -1,7 +1,7 @@
-import { aesgcm } from ".";
 import { generateCryptoRandomString } from "../../generate_crypto_random_string";
 import { generateCryptoRandomValues } from "../../generate_crypto_random_values";
 import { textToBuf } from "../../utils";
+import { aesgcm } from ".";
 
 describe("aes gcm", () => {
   it("should encrypt/decrypt plaintext", async () => {

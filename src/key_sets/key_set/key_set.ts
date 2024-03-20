@@ -1,6 +1,6 @@
 import { JsonWebEncryption, RSA, textToBuf } from "../../common";
-import { SymmetricKey } from "../symmetric_key";
 import { JsonWebEncryptionLike } from "../../common/jwe/types";
+import { SymmetricKey } from "../symmetric_key";
 
 export interface KeySet {
   symmetricKey: ArrayBuffer;

@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
+import { checkAsymmetricEncryption } from "./__tests__/helpers/check_asymmetric_encryption";
+import { generateKeyPair } from "./__tests__/helpers/generate_key_pair";
 import { IncorrectOriginCryptoKeyError } from "./errors";
 import { RSA } from ".";
-import { generateKeyPair } from "./__tests__/helpers/generate_key_pair";
-import { checkAsymmetricEncryption } from "./__tests__/helpers/check_asymmetric_encryption";
 
 describe("rsa", () => {
   afterEach(() => {

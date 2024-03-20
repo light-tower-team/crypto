@@ -1,7 +1,7 @@
-import { rsaoaep } from ".";
 import { generateCryptoRandomValues } from "../../generate_crypto_random_values";
 import { RSA } from "../../rsa";
 import { CryptoKeyRequiredError } from "./errors";
+import { rsaoaep } from ".";
 
 describe("rsa", () => {
   it("should encrypt/decrypt a cek", async () => {

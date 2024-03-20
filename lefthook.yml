@@ -4,23 +4,23 @@ pre-push:
     type-check:
       tags: type check
       glob: "*.{ts,tsx}"
-      run: "./node_modules/.bin/tsc --noEmit"
-    eslint:
-      tags: lint
+      run: npx tsc --noEmit
+    lint:
+      tags: code-style
       files: git diff --name-only --diff-filter=d origin/master...HEAD
       glob: "*.{ts,tsx}"
-      run: ./node_modules/.bin/eslint --report-unused-disable-directives --max-warnings 0 {files}
-    prettier:
-      tags: format
+      run: npx eslint --report-unused-disable-directives --max-warnings 0 {files}
+    format:
+      tags: code-style
       files: git diff --name-only --diff-filter=d origin/master...HEAD
       glob: "*.{ts,tsx}"
-      run: ./node_modules/.bin/prettier --check {files}
+      run: npx prettier --check {files}
 
 auto-fix:
   parallel: true
   commands:
-    style-errors:
-      tags: style-errors
+    code-style:
+      tags: code-style
       files: git diff --name-only --diff-filter=d origin/master...HEAD
       glob: "*.{ts,tsx}"
-      run: "./node_modules/.bin/eslint --fix {files} && ./node_modules/.bin/prettier --write --list-different {files}"
+      run: npx eslint --fix {files} && npx prettier --write --list-different {files}

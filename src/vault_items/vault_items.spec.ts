@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
+import { generateCryptoRandomValues } from "../common";
 import { VaultItem } from "./types";
 import VaultItems from ".";
-import { generateCryptoRandomValues } from "../common";
 
 describe("vault items", () => {
   it("should encrypt/decrypt a vault item by a symmetric key", async () => {

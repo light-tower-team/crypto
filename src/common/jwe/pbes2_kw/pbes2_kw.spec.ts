@@ -1,6 +1,6 @@
-import { pbes2kw } from ".";
 import { generateCryptoRandomValues } from "../../generate_crypto_random_values";
 import { PBES2_KeyEncryptionAlgorithm } from "../types";
+import { pbes2kw } from ".";
 
 describe("pbes2 kw", () => {
   it.each<{ alg: PBES2_KeyEncryptionAlgorithm }>([

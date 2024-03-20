@@ -1,6 +1,6 @@
 import { generateCryptoRandomString } from "../../generate_crypto_random_string";
 import { generateCryptoRandomValues } from "../../generate_crypto_random_values";
-import { decryptKeyManagement } from ".";
+import { RSA } from "../../rsa";
 import { encryptKeyManagement } from "../encrypt_key_management/encrypt_key_management";
 import {
   EncryptedKeyNotSpecifiedError,
@@ -9,7 +9,7 @@ import {
   UnknownKeyEncryptionAlgorithmError,
 } from "../errors";
 import { KeyEncryptionAlgorithm } from "../types";
-import { RSA } from "../../rsa";
+import { decryptKeyManagement } from ".";
 
 describe("decrypt key management", () => {
   it("should throw an error when the key encryption algorithm is unknown", async () => {

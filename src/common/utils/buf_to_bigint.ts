@@ -1,5 +1,5 @@
 export function bufToBigInt(buf: ArrayBuffer): bigint {
-  let bits = 8n;
+  const bits = 8n;
 
   buf = new Uint8Array(buf);
 

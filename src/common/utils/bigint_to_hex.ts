@@ -12,7 +12,7 @@ export function bigIntToHex(a: bigint): string {
   let hex = a.toString(16);
 
   if (hex.length % 2) {
-    hex = "0" + hex;
+    hex = `0${hex}`;
   }
 
   return hex;
